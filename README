@@ -1,0 +1,4 @@
+1. You need to have a directory with all signed certificates, present in this directory.
+2. Specify the certificate directory in the configuration file caops.conf.
+3. Generate newcertlist.txt by executing gencertlist.sh. Check for correctness, and if ok, rename it to certlist.txt.
+4. Copy  
