@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <h1> {{caname}} certificate revocation list</h1>
+
+<table border='1'>
+    <tr>
+        <th>Serial</th>
+        <th>Distinguished name</th>
+        <th>Reason</th>
+    </tr>
+
+    {% for key,val in revokeddict.iteritems() %}
+        <tr>
+            <td> {{ key }} </td>
+            <td> {{ val }} </td>
+            <td> {{ revocationreason[key] }} </td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

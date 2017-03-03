@@ -1,0 +1,214 @@
+<p><strong>NSC Simple CA Root CA Certificate Policy and Certificate Practices Statement</strong></p>
+<p>(In RFC 3647 format)</p>
+<p><strong>Date: March 1 2017</strong><br />
+<strong>Version:1.00</strong></p>
+<h1 id="introduction"><span class="header-section-number">1</span> Introduction</h1>
+<p>The National Supercomputer Center (NSC) at Linköping University (LiU) (NSC) operates a Certification Authority called the NSC Simple CA Root Certificate Authority (CA) to issue CA and identity certificates for the systems in Earth System Grid Federation.</p>
+<p>This document describes the set of rules and procedures established by NSC for the operation of the NSC Simple CA Root CA PKI services. Structured according to RFC 3647 <span>[</span>RFC3647<span>]</span>, this document describes policy and practices of NSC Simple CA PKI services. The Certificate Policy (CP) describes the requirements for operation of the PKI and for granting PKI credentials as well as lifetime management of those credentials. The Certificate Practices Statement (CPS) describes the actual steps that NSC Simple CA takes to implement the CP. These two statements taken together are designed so that a Relying Party can look at them and obtain an understanding of the trustworthiness of credentials issued by the NSC Simple CA Root CA.</p>
+<h2 id="overview"><span class="header-section-number">1.1</span> Overview</h2>
+<p>The NSC Simple CA infrastructure supports grid and e-science activities in the Earth System Grid Federation (ESGF). This document describes the set of rules and procedures established by ESGF for the operations of the NSC Simple CA Root CA service. The purpose of the NSC Simple CA Root CA is:</p>
+<ol>
+<li><p>To sign host certificates for nodes operated by vetted members of the ESGF federation.</p></li>
+<li><p>To sign subordinate CA certificates for nodes operated by vetted members of the federation, with the understanding that the subordinate CA may only be used to issue end-user credentials and short-lived credential proxies.</p></li>
+</ol>
+<h2 id="document-name-and-identification"><span class="header-section-number">1.2</span> Document name and identification</h2>
+<p>This document is the CP and CPS of the NSC Simple CA Root CA.</p>
+<p><strong>Document title:</strong> NSC Simple CA Root CA Certificate Policy and Certification Practice Statement<br />
+<strong>Document version: 1.00</strong><br />
+<strong>Document date: March 1 2017</strong></p>
+<h2 id="pki-participants"><span class="header-section-number">1.3</span> PKI participants</h2>
+<ol>
+<li><p>Certificate Authorities: The NSC Simple CA Root CA issues CA certificates and host certificates for the ESGF.</p></li>
+<li><p>Registration Authorities: There are no RAs external to the issuing authority. NSC Simple CA alone (the issuing authority) is responsible for all approvals and revocations.</p></li>
+<li><p>Subscribers: Only institutions that participate in the ESGF receive certificates from the Root CA.</p></li>
+<li><p>Relying Parties: No stipulation.</p></li>
+</ol>
+<h2 id="certificate-usage"><span class="header-section-number">1.4</span> Certificate usage</h2>
+<p>The NSC Simple CA Root certificate may be used for the following purposes:</p>
+<ol>
+<li><p>To validate the signature of a Subject CA</p></li>
+<li><p>More generally, to validate any certificate chain ending with this Root, provided all certificates in the chain are used for permitted purposes</p></li>
+<li><p>To validate the signature on a CRL issued by this Root. No other use of the NSC Simple CA Root certificate is permitted. The NSC Simple CA Root asserts that all Subordinate CAs serve the same community and they all issue in distinct namespaces.</p></li>
+</ol>
+<h2 id="policy-administration"><span class="header-section-number">1.5</span> Policy administration</h2>
+<p>The National Supercomputer Center (NSC) at Linköping University (LiU) (NSC) is responsible for drafting, registering, maintaining and updating this CP/CPS. The person responsible for this policy and the practices of the CA is: Prashanth Dwarakanath , National Supercomputer Center (NSC), House Galaxen, Entrance 83, Linköping University, Campus Valla, Olaus Magnus väg 42-44, Linköping, Email: esg-admin@nsc.liu.se.</p>
+<h2 id="definitions-and-acronyms"><span class="header-section-number">1.6</span> Definitions and acronyms</h2>
+<ol>
+<li><p>NSC: National Supercomputer Center (NSC) at Linköping University (LiU), located in Linköping, Sweden.</p></li>
+<li><p>EE: Users obtaining credentials from a Subordinate/Subject CA are called End Entities (EE).</p></li>
+<li><p>ESGF: is the Earth System Grid Federation.</p></li>
+<li><p>RP: Relying party (RP) is a computer term used to refer to a server providing access to a secure software application. Claims-based applications, where a claim is a statement an entity makes about itself in order to establish access, are also called relying party applications.</p></li>
+<li><p>For the purposes of this document, a Subject CA is a CA whose certificate was issued by the Root whose policy and practices are described in this document.</p></li>
+<li><p>For the purposes of this document, a Subordinate CA is a Subject CA in a hierarchy whose root is described in this document.</p></li>
+<li><p>For the purposes of this document, Profile refers to the content of the signed envelope within a certificate, but excluding the public key itself and the lifetime. Thus, Profile normally comprises extensions, the issuer and subject names, but also the type of keys and algorithms, and the version of the certificate.</p></li>
+</ol>
+<h1 id="publication-and-repository-responsibilities"><span class="header-section-number">2</span> Publication and repository responsibilities</h1>
+<p>It is the responsibility of the NSC Simple CA Root CA to publish the following information at <a href="https://esg-dn2.nsc.liu.se/CA" class="uri">https://esg-dn2.nsc.liu.se/CA</a></p>
+<ol>
+<li><p>Its CP/CPS;</p></li>
+<li><p>Its certificate;</p></li>
+<li><p>All certificates issued by the NSC Simple CA Root CA and their status;</p></li>
+<li><p>The signing policy of the hierarchy of which it forms the root;</p></li>
+<li><p>Its Certificate Revocation List (CRL)</p></li>
+</ol>
+<p>The NSC Simple CA Root CA grants the ESGF the right of unlimited redistribution of this information.</p>
+<h1 id="identification-and-authentication"><span class="header-section-number">3</span> Identification and authentication</h1>
+<h2 id="naming"><span class="header-section-number">3.1</span> Naming</h2>
+<ol>
+<li><p>Each of the Subject CAs shall have a unique name;</p></li>
+<li><p>Its Subject DN shall form the Subject name of each Subject CA to relate its purpose and distinguish it from others alone.</p></li>
+<li><p>The Issuer name shall be: /O=ESGF/OU=ESGF.ORG/OU=simpleca.nsc.liu.se/CN=NSC Simple CA</p></li>
+<li><p>No subject name of a Subject CA shall be reused anywhere in the hierarchy.</p></li>
+<li><p>Subject CA names have a fixed and a variable component. The certificate subject names start with the fixed component to which a variable component is appended to make it unique. The fixed component is as follows:</p></li>
+</ol>
+<p>/O=ESGF/OU=ESGF.ORG</p>
+<h2 id="initial-identity-validation"><span class="header-section-number">3.2</span> Initial identity validation</h2>
+<p>A certificate shall be issued to a Subject CA only when:</p>
+<ol>
+<li><p>The requestor has been ascertained to be the responsible node administrator of the node the certificate is being sought for.</p></li>
+<li><p>The requestor and his organization have been vetted to be a part of the ESGF federation.</p></li>
+<li><p>The Subject CA promises to adhere to the policies and practices described in this document.</p></li>
+<li><p>The Subject CA has submitted a certificate request and is able to prove to the Root CA possession of the corresponding private key.</p></li>
+</ol>
+<p>Furthermore, the NSC Simple CA Root CA requires, as a condition for certificate issuance, that:</p>
+<ol>
+<li><p>All Subject CAs make available to the NSC Simple CA Root CA results of CA audits and plans to remedy deficiencies</p></li>
+<li><p>All Subject CA Managers and Operators agree to be signed up to a closed mailing list, maintained by the NSC Simple CA Root CA;</p></li>
+<li><p>The Subject CA’s certificate request (and hence certificate) contains no personal information.</p></li>
+</ol>
+<h2 id="identification-and-authentication-for-re-key-requests"><span class="header-section-number">3.3</span> Identification and authentication for re-key requests</h2>
+<p>NSC Simple CA Security Officers who manage the Subject CA shall prove possession of the private key corresponding to the certificate being renewed, and prove possession of the private key corresponding to the request being submitted.</p>
+<h2 id="identification-and-authentication-for-revocation-request"><span class="header-section-number">3.4</span> Identification and authentication for revocation request</h2>
+<p>The certificate of a Subject CA will be revoked when:</p>
+<ol>
+<li><p>A revocation request is received which is signed with the private key of the Subject CA; or,</p></li>
+<li><p>An authenticated revocation request from the CA Manager of the Subject CA is received; or,</p></li>
+<li><p>The NSC Simple CA Root CA has otherwise determined the need for revocation, e.g., if the Subject CA does not comply with the requirements imposed on it by the NSC Simple CA Root.</p></li>
+</ol>
+<h1 id="certificate-life-cycle-operational-requirements"><span class="header-section-number">4</span> Certificate life-cycle operational requirements</h1>
+<p>The NSC Simple CA uses a 4096 bit key and has a lifetime of five years. For Subject CAs, keys are generated by the requestors who are responsible for the security of the keys themselves. The Subject CAs shall have a lifetime not exceeding one year.</p>
+<h2 id="certificate-application"><span class="header-section-number">4.1</span> Certificate application</h2>
+<p>For an initial request, the Manager of the Subject CA shall agree to the namespace of the Subject CA with the Manager of the NSC Simple CA Root CA, and shall submit a CP/CPS under which the Subject CA will operate. It is the responsibility of the Manager of the Subject CA to ensure that it operates within the constraints imposed by the Policy of the Root.</p>
+<h2 id="certificate-application-processing"><span class="header-section-number">4.2</span> Certificate application processing</h2>
+<p>When the NSC Simple CA Root CA Manager is satisfied that Subject CA will operate within the constraints imposed by the Root, The NSC Simple CA Root CA will issue and publish the certificate of the Subject CA.</p>
+<h2 id="certificate-issuance"><span class="header-section-number">4.3</span> Certificate issuance</h2>
+<p>The NSC Simple CA Root CA Manager makes the Subject CA available on its website.</p>
+<h2 id="certificate-acceptance"><span class="header-section-number">4.4</span> Certificate acceptance</h2>
+<p>Both the NSC Simple CA Root CA Manager and the NSC Simple CA Subject CA Manager shall verify the content of the Subject CA certificate against the CP/CPS of the Subject CA and test its use (e.g. against grid middleware). If problems are discovered during testing, the certificate shall be revoked by the NSC Simple CA Root CA, and reissued with changes, provided that these changes are still compatible with the CP/CPSes of both the NSC Simple CA Root and Subject CAs.</p>
+<h2 id="key-pair-and-certificate-usage"><span class="header-section-number">4.5</span> Keypair and certificate usage</h2>
+<p>The certificates of all Subordinate CAs and those of the EEs issued by Subordinate CAs must be used only for purposes of direct academic science and grid work, or related incidental support (i.e. infrastructure, email). The certificates issued to Subject CAs may only be used as CA certificates, i.e., for validating certificates issued by them, and for validating CRLs. A Subordinate CA may impose further constraints on the use of certificates on, and only on, their EEs. Conversely, no Subordinate CA shall relax constraints imposed on its policy or operations by the CP/CPS of a CA of which it is itself Subordinate. It is the responsibility of the EE to use certificates for permitted purposes only. It is the responsibility of RPs to validate the certificate to their satisfaction at the time of reliance.</p>
+<h2 id="certificate-renewal"><span class="header-section-number">4.6</span> Certificate renewal</h2>
+<p>Issued certificates are never automatically renewed, and it is the responsibility of the certificate requestors to contact the NSC Certificate authority by emailing esg-admin@nsc.liu.se, and requesting for a new certificate. Requestors are expected to generate new keys and make a fresh request for a new certificate.</p>
+<h2 id="certificate-rekey"><span class="header-section-number">4.7</span> Certificate rekey</h2>
+<p>No stipulation.</p>
+<h2 id="certificate-modification"><span class="header-section-number">4.8</span> Certificate modification</h2>
+<p>Certificate modifications are neither offered nor supported. A new certificate has to be requested and issued, and the old one revoked.</p>
+<h2 id="certificate-revocation-and-suspension"><span class="header-section-number">4.9</span> Certificate revocation and suspension</h2>
+<p>A Subject key CA shall be revoked if:</p>
+<ol>
+<li><p>It is seen to consistently and willfully violate its own CP/CPS, or that the CA Manager of the Subject CA does not take steps to address such</p></li>
+<li><p>It is seen to violate requirements imposed on it by the policy and practices of the Root; or</p></li>
+<li><p>It can be shown that the private key has been compromised.</p></li>
+</ol>
+<h2 id="certificate-status-services"><span class="header-section-number">4.10</span> Certificate status services</h2>
+<p>The Root CA shall issue a CRL. Certificates and certificate status of Subject CAs are available on the Root CA’s web site. See also section [ca-or-ra-termination].</p>
+<h2 id="end-of-subscription"><span class="header-section-number">4.11</span> End of subscription</h2>
+<p>No stipulation.</p>
+<h1 id="facility-management-and-operational-controls"><span class="header-section-number">5</span> Facility, management and operational controls</h1>
+<p>This section discusses specific NSC Simple CA procedures related to its facility and NSC Simple CA Root CA operation.</p>
+<h2 id="physical-security-controls"><span class="header-section-number">5.1</span> Physical security</h2>
+<p>The machine on which the Root signs its certificates and CRLs is implemented on a virtual machine dedicated to CA processing, and is placed in a secured building, access to which is restricted by means of electronic keycard and a physical key.</p>
+<h2 id="personnel-controls"><span class="header-section-number">5.2</span> Personnel controls</h2>
+<p>Training: The Root CA is OpenSSL based, and NSC Simple CA Managers must have sufficient experience with OpenSSL to be able to issue certificates and CRLs. NSC Simple CA Managers must be permanent NSC staff.</p>
+<h2 id="audit-logging-procedures"><span class="header-section-number">5.3</span> Audit logging procedures</h2>
+<p>All OpenSSL operations and basic system logs for the signing machine will be saved in files that are periodically signed and backed up onto secondary storage media.</p>
+<h2 id="records-archival"><span class="header-section-number">5.4</span> Records archival</h2>
+<p>Records are kept throughout the lifetime of the CA and for a period no less than three years after the termination of the CA.</p>
+<h2 id="key-changeover"><span class="header-section-number">5.5</span> Key changeover</h2>
+<p>At re-keying, the new Root public keys shall be published on the Root CA’s web site, as certificates signed by both the old and the new private key. The transitional certificate, signed with the old key, shall expire at the same time as the old Root certificate, but shall otherwise have the same content as the new Root certificate. It shall be clearly marked as a transitional certificate, and instructions shall be provided for users explaining how to verify the transition.</p>
+<h2 id="compromise-and-disaster-recovery"><span class="header-section-number">5.6</span> Compromise and disaster-recovery</h2>
+<p>Following any compromise of the Root private key, The Root CA shall make this widely known to all peer CAs, Subject CAs and relying parties. Efforts to re-issue new Subject CA certificates will follow the method described in section [ca-or-ra-termination].</p>
+<h2 id="ca-or-ra-termination"><span class="header-section-number">5.7</span> CA or RA termination</h2>
+<p>Upon termination of the Root CA, a NSC Simple CA Manager shall communicate this in advance to peer CAs, Subject CAs and relying parties. The advance notice should be no less than the longest lifetime of any currently valid Subject CA.</p>
+<h1 id="technical-security-controls"><span class="header-section-number">6</span> Technical security controls</h1>
+<p>This section discusses technical aspects specific to the operation of the NSC Simple CA Root CA.</p>
+<h2 id="key-pair-generation-and-installation"><span class="header-section-number">6.1</span> Key-pair generation and installation</h2>
+<p>The Root CA’s key pair shall be generated with sufficient entropy by the Globus Simple CA program. It shall be the responsibility of a NSC Simple CA Manager to generate the key pair. The Root key pair shall be RSA and have a length of at least 4096 bits. Key pairs for Subject CAs are generated according to best practices. Each Subject CA key pair should have a length of at least 2048 bits.</p>
+<h2 id="other-aspects-of-key-pair-management"><span class="header-section-number">6.2</span> Other aspects of key pair management</h2>
+<p>All Root CA certificates shall be kept and published throughout the lifetime of the CA, and a period no less than three years after the termination of the CA. Subject CAs’ key pairs shall have a lifetime not to exceed one year.</p>
+<h2 id="computer-security-controls"><span class="header-section-number">6.3</span> Computer security controls</h2>
+<p>Only NSC Simple CA Security Officers and CA Managers may access the dedicated NSC Simple CA server.</p>
+<h2 id="life-cycle-technical-controls"><span class="header-section-number">6.4</span> Lifecycle technical controls</h2>
+<p>Only NSC Simple CA Security Officers or CA Managers may perform hardware maintenance or upgrade software on the dedicated NSC Simple CA server.</p>
+<h2 id="network-security-controls"><span class="header-section-number">6.5</span> Network security controls</h2>
+<p>The NSC Simple CA Root CA server is a VM which operates on a private LAN with no other hosts on the same network, except the host machine. The network settings on the server are set to use the host machine as the gateway for all outbound network connectivity, and the host itself is configured to disallow packet forwarding, except when the machine is being updated for security updates. A local firewall policy on the server prohibits all machines other than the host machine, to connect to it via ssh. No other ports on the server are open from any machine, including the host machine. This ensures that the NSC Simple CA Root CA server is disconnected from the internet and all other machines, except the host machine, at all times, other than the time when it is being updated. Even when it is being updated, only outbound connection requests from the server are permitted to receive responses, i.e. it cannot be contacted by any external machine, directly, at any time.</p>
+<h2 id="time-stamping"><span class="header-section-number">6.6</span> Time-stamping</h2>
+<p>The CA server shall synchronize its machine clock with its host machine, which is in turn synced to the time servers at NSC. In addition, the NSC Simple CA Root CA Manager shall periodically check the time on the server, to ensure that it is really in sync, and correct it, only if necessary.</p>
+<h1 id="certificate-crl-and-ocsp-profiles"><span class="header-section-number">7</span> Certificate, CRL and OCSP profiles</h1>
+<p>This section articulates details of certificates and certificate revocation lists issued by the NSC Simple CA Root CA. The NSC Simple CA Root CA does not currently provide OCSP support.</p>
+<h2 id="certificate-profile"><span class="header-section-number">7.1</span> Certificate profile</h2>
+<p>All certificates issued by the NSC Simple CA Root CA conform to the Internet PKI profile (PKIX) for X.509 certificates as defined by RFC 3280 <span>[</span>RFC3280<span>]</span>.</p>
+<p>The Root CA shall have the following Profile:</p>
+<ol>
+<li><p>The certificate shall be version 3 (i.e., the version number shall be 2);</p></li>
+<li><p>The issuer and subject name shall both be the following: O = ESGF, OU = ESGF.ORG, OU = simpleca.nsc.liu.se, CN = NSC Simple CA</p></li>
+<li><p>The signature algorithm shall be sha256WithRSAEncryption;</p></li>
+<li><p>The extensions shall contain:</p>
+<ol>
+<li><p>basicConstraints: CA=true, critical;</p></li>
+<li><p>keyUsage: certificate signing, CRL signing, critical;</p></li>
+<li><p>There shall be a subjectKeyIdentifier and it shall have the hash as a value;</p></li>
+</ol></li>
+</ol>
+<p>The requirements on the Profile of the Subject CAs are as follows:</p>
+<ol>
+<li><p>The certificate shall be version 3 (i.e., the version number shall be 2);</p></li>
+<li><p>basicConstraints must be present and critical and must contain CA=true, ( but may contain other constraints);</p></li>
+<li><p>keyUsage must be present and critical and must have certificate signing and CRL signing set, and no other value;</p></li>
+<li><p>There shall be a subjectKeyIdentifier containing the hash.</p></li>
+<li><p>Other extensions are allowed.</p></li>
+</ol>
+<h2 id="crl-profile"><span class="header-section-number">7.2</span> CRL Profile</h2>
+<p>The Root CA issues CRL version 2 (i.e., the version number shall be 1). The “lifetime” of the CRL is 18 months and it is issued at least once every year.</p>
+<h2 id="ocsp-profile"><span class="header-section-number">7.3</span> OCSP Profile</h2>
+<p>Not applicable.</p>
+<h1 id="compliance-audit-and-other-assessments"><span class="header-section-number">8</span> Compliance audit and other assesments</h1>
+<p>An NSC Security Officer shall carry out a compliance audit of the Root CA once every year. The audit shall inspect the logs and check the security of the activation data and the copies of the encrypted private key.</p>
+<h1 id="other-business-and-legal-matters"><span class="header-section-number">9</span> Other business and legal matters</h1>
+<p>The section headers in section [other-business-and-legal-matters] are taken from RFC3647 and are kept as-is for ease of reference and comparison with other CAs. They must not be interpreted or construed in any way that will affect the interpretation or construction of the contents of the sections. Certificates and all other components of the CA must be used for lawful purposes only. CA Managers shall sign a document to the effect that they will comply with the procedures and requirements described in this document.</p>
+<h2 id="fees"><span class="header-section-number">9.1</span> Fees</h2>
+<p>The NSC Simple CA Root CA charges no fees for its services.</p>
+<h2 id="financial-responsibility"><span class="header-section-number">9.2</span> Financial responsibility</h2>
+<p>No financial responsibility is accepted for certificates issued under this policy.</p>
+<h2 id="confidentiality-of-business-information"><span class="header-section-number">9.3</span> Confidentiality of business information</h2>
+<p>The NSC Simple CA Root CA will follow best practices to protect any confidential information as well as policies as specified by the Linköping University.</p>
+<h2 id="privacy-of-personal-information"><span class="header-section-number">9.4</span> Privacy of personal information</h2>
+<p>The NSC Simple CA Root CA does not process any personal data, except for the following:</p>
+<ol>
+<li><p>The email addresses of the NSC Simple CA Security Officers and CA Managers. These are not published and are used only for announcements pertaining to the Root CA or announcements affecting all Subject CAs.</p></li>
+</ol>
+<p>NSC Simple CA Root and Subject CAs publish a generic email address to contact NSC Security Officers: esg-admin@nsc.liu.se.</p>
+<h2 id="intellectual-property-rights"><span class="header-section-number">9.5</span> Intellectual property rights</h2>
+<p>This document is based on RFC3647 and its application to the “UK e-Science Root Certificate Policy and Certification Practices Statement” by the UK e-Science CA run by CCLRC, and the document titled ‘ANL/ESGF Root CA Certificate Policy and Practices Statement’ authored by Lukasz Lacinski of Argonne National Labs. The NSC Simple CA Root CA does not claim any IPR on certificates that it has issued. Anybody may freely copy from any version of the NSC Simple CA Root CA’s Certificate Policy and Certification Practices Statement provided they include an acknowledgment of these sources.</p>
+<h2 id="representations-and-warranties"><span class="header-section-number">9.6</span> Representations and warranties</h2>
+<p>When issuing a certificate to a Subject CA, the NSC Simple CA Root CA will have evaluated the CP/CPS of the Subject CA and is satisfied that the Subject CA, when operating according to its CP/CPS, complies with the requirements imposed on it by this document.</p>
+<h2 id="disclaimers-of-warranties"><span class="header-section-number">9.7</span> Disclaimers of warranties</h2>
+<p>NSC Simple CA makes no representation and gives no warranty, condition or undertaking in relation to the NSC Simple CA Root CA and its operation.</p>
+<h2 id="limitations-of-liability"><span class="header-section-number">9.8</span> Limitations of liability</h2>
+<p>With respect of the information published by the Root CA, including, but not limited to certificates and CRLs, the Root CA shall make best endeavors to ensure the information is timely and accurate. NSC Simple CA shall be under no obligation or liability, and no warranty condition or representation of any kind is made, given or to be implied as to the sufficiency, accuracy or fitness for purpose of such information. The recipient party, whether CA, RP, EE, or anyone else, shall in any case be entirely responsible for the use to which it puts such information. The NSC Simple CA Root CA also declines any liability for damages arising from the nonissuance of a requested certificate, or for the revocation of a certificate initiated by the CA or the designated RA acting in conformance with this CP/CPS.</p>
+<h2 id="indemnities"><span class="header-section-number">9.9</span> Indemnities</h2>
+<p>The NSC Simple CA Root CA declines any payment of indemnities for damages arising from the use or rejection of certificates it issues. Each Subject CA and relying party shall indemnify and hold harmless NSC Simple CA and keep NSC Simple CA indemnified against any and all damages, costs, claims or expenses, which are awarded against, or suffered by the Subject CA or relying parties or their hosting institution or company, as a result of any act or omission of the relying party or Subject CA.</p>
+<h2 id="term-and-termination"><span class="header-section-number">9.10</span> Term and termination</h2>
+<p>The initial lifetime of the NSC Simple CA is five years, and it is intended to be renewed for a similar period, prior to reaching expiration. Should the NSC Simple CA Root CA service be permanently discontinued, there shall be a federation-wide announcement, prior to closure.</p>
+<p>The NSC Simple CA Root CA shall issue no certificate whose lifetime will exceed the date of termination and is obligated to maintain its CRL until its termination.</p>
+<h2 id="individual-notices-and-communications-with-participants"><span class="header-section-number">9.11</span> Individual notices and communications with participants</h2>
+<p>All agreements between the NSC Simple CA Root CA and any organization must be documented and signed by the appropriate authorities. A mailing list shall be maintained for announcements pertaining to the NSC Simple CA Root CA, or announcements affecting all Subject CAs.</p>
+<h2 id="amendments"><span class="header-section-number">9.12</span> Amendments</h2>
+<p>The NSC Simple CA Root CA shall communicate amendments to Subject CAs and to the ESGF.</p>
+<h2 id="dispute-resolution-provisions"><span class="header-section-number">9.13</span> Dispute resolution provisions</h2>
+<p>NSC Security Officers shall resolve any disputes arising out of the CP/CPS.</p>
+<h2 id="miscellaneous-provisions"><span class="header-section-number">9.14</span> Miscellaneous provisions</h2>
+<p>No stipulation.</p>
+<h2 id="other-provisions"><span class="header-section-number">9.15</span> Other provisions</h2>
+<p>No stipulation.</p>
+<h1 id="change-log"><span class="header-section-number">10</span> Change log</h1>
