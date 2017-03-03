@@ -1,4 +1,6 @@
 1. You need to have a directory with all signed certificates, present in this directory.
 2. Specify the certificate directory in the configuration file caops.conf.
 3. Generate newcertlist.txt by executing gencertlist.sh. Check for correctness, and if ok, rename it to certlist.txt.
-4. Copy  
+4. Replace rootca.pem with your CA's root certificate.
+5. Replace templates/cp-cps.html with your CA's CP/CPS. If you have derived it from the ESGF CA CP/CPS template, you can generate a html version of the latex file by using the pandoc program. The command for the pandoc conversion is as follows:
+	pandoc -f latex -t html esgf-ca.tex -o cp-cps.html -N 
