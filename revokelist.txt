@@ -1,0 +1,2 @@
+#Serial:DN:Reason for revocation
+xxx:/O=ESGF/OU=ESGF.ORG/CN=blah:Test entry for revocation list

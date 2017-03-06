@@ -4,14 +4,11 @@ from flask import render_template
 from flask import redirect, url_for
 
 app = Flask(__name__)
-app.debug=True
 @app.route('/')
 def my_form():
 	confvals=readConf()
 	caname=confvals['CANAME']
 	return render_template("main.html",caname=caname)
-
-	
 
 @app.route('/certlist')
 def load_certlist():
@@ -37,8 +34,22 @@ def load_revoked():
 	caname=confvals['CANAME']
 	revokeddict=dict()
 	revocationreason=dict()
-	revokeddict['xxx']='Dummy cert DN'
-	revocationreason['xxx']='Testing revocation list'
+	fp=open('revokelist.txt')
+	lines=fp.readlines()
+	fp.close()
+	try:
+		for line in lines:
+			if line.find('#') != -1:
+				continue
+			serial=line.split(':')[0]
+			dn=line.split(':')[1]
+			reason=line.split('\n')[0].split(':')[2]
+			revokeddict[serial]=dn
+			revocationreason[serial]=reason
+	except:
+		error_text='File revokelist.txt has entries with incorrect syntax.'
+		return render_template('cert-display.html',text=error_text,caname=caname)
+		
 	return render_template('revoked.html',revokeddict=revokeddict,revocationreason=revocationreason,caname=caname)
 
 @app.route('/cpcps')
@@ -67,10 +78,15 @@ def list_certs():
 	fp=open('certlist.txt')
 	lines=fp.readlines()
 	fp.close()
-	for line in lines:
-		key=line.split(':')[0]
-		val=line.split('\n')[0].split(':')[1]
-		certs[key]=val
+	try:
+		for line in lines:
+			key=line.split(':')[0]
+			val=line.split('\n')[0].split(':')[1]
+			certs[key]=val
+	except:
+		error_text='File certlist.txt has entries with incorrect syntax.'
+		return render_template('cert-display.html',text=error_text,caname=caname)
+
 	text = request.form['text']
 	if not certs.__contains__(text):
 		processed_text='Certificate with specified DN not found'
@@ -85,8 +101,8 @@ def list_certs():
 		lines=fp.readlines()
 		fp.close()
 	except:
-		processed_text='Could not find certificate file specified.'
-		return render_template('cert-display.html',text=processed_text,caname=caname)
+		error_text='Could not find certificate file specified.'
+		return render_template('cert-display.html',text=error_text,caname=caname)
 		
 	processed_text=''
 	for line in lines:
