@@ -1,6 +1,6 @@
 Prerequisites: 
-Flask, mod-wsgi, httpd
+Flask, mod_wsgi, httpd, python 2.6/2.7
 
 1. Copy directory to some place readable by Apache user (ex /opt)
 2. Setup your apache refering to httpd-conf file in this repo, correcting paths if necessary.
-3. If you are doing this on a machine running ESGF, add the configuration to /etc/httpd/conf/esgf-httpd-locals.conf and uncomment the include line from within the virtualhost *:443 section.  
+3. If you installing this on a machine running ESGF, add the configuration to /etc/httpd/conf/esgf-httpd-locals.conf and uncomment the include line from within the virtualhost *:443 section.
