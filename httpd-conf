@@ -1,3 +1,5 @@
+WSGISocketPrefix run/wsgi
+WSGIDaemonProcess demo user=apache group=apache threads=10
 WSGIScriptAlias /CA /opt/ca-ops/ca-ops.wsgi
 <Directory /opt/ca-ops>
 	Order allow,deny
