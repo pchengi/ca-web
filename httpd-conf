@@ -1,0 +1,6 @@
+WSGIScriptAlias /CA /opt/ca-ops/ca-ops.wsgi
+<Directory /opt/ca-ops>
+	Order allow,deny
+	Allow from all
+	AllowOverride None
+</Directory>
