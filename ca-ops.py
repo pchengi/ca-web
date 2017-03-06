@@ -1,7 +1,9 @@
+#!/usr/bin/env python
 from flask import Flask
 from flask import request
 from flask import render_template
 from flask import redirect, url_for
+import os,sys
 
 app = Flask(__name__)
 @app.route('/')
@@ -34,7 +36,9 @@ def load_revoked():
 	caname=confvals['CANAME']
 	revokeddict=dict()
 	revocationreason=dict()
-	fp=open('revokelist.txt')
+	where=os.path.dirname(__file__)
+	revokefile=os.path.join(where,"revokelist.txt")
+	fp=open(revokefile)
 	lines=fp.readlines()
 	fp.close()
 	try:
@@ -60,7 +64,8 @@ def load_cpcps():
 def load_cacert():
 	confvals=readConf()
 	caname=confvals['CANAME']
-	toopen='rootcert.pem'
+	where=os.path.dirname(__file__)
+	toopen=os.path.join(where,"rootcert.pem")
 	fp=open(toopen)
 	lines=fp.readlines()
 	fp.close()
@@ -75,7 +80,9 @@ def list_certs():
 	confvals=readConf()
 	caname=confvals['CANAME']
 	certs=dict()
-	fp=open('certlist.txt')
+	where=os.path.dirname(__file__)
+	certlist=os.path.join(where,"certlist.txt")
+	fp=open(certlist)
 	lines=fp.readlines()
 	fp.close()
 	try:
@@ -96,8 +103,10 @@ def list_certs():
 	toopen=confvals['CERTDIR']
 	toopen+='/'
 	toopen+=cert
+	where=os.path.dirname(__file__)
+	certfile=os.path.join(where,toopen)
 	try:
-		fp=open(toopen)
+		fp=open(certfile)
 		lines=fp.readlines()
 		fp.close()
 	except:
@@ -111,8 +120,10 @@ def list_certs():
 	return render_template('cert-display.html',text=processed_text,caname=caname)
 
 def readConf():
+	where=os.path.dirname(__file__)
+	conffile=os.path.join(where,"caops.conf")
 	confvals=dict()
-	fp=open('caops.conf')
+	fp=open(conffile)
 	lines=fp.readlines()
 	fp.close()
 	for line in lines:
