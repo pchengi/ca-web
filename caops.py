@@ -29,7 +29,24 @@ def get_opt():
 		return redirect(url_for('load_cpcps'))
 	if option == 'listrevoked':
 		return redirect(url_for('load_revoked'))
+	if option == 'dispsigningpolicy':
+		return redirect(url_for('load_signingpolicy'))
 
+@app.route('/signingpolicy')
+def load_signingpolicy():
+	confvals=readConf()
+	caname=confvals['CANAME']
+	where=os.path.dirname(__file__)
+	toopen=os.path.join(where,"signingpolicy.txt")
+	fp=open(toopen)
+	lines=fp.readlines()
+	fp.close()
+	processed_text=''
+	for line in lines:
+		processed_text+=line
+	processed_text=processed_text.replace('\n','<br>')
+	return render_template('display-file.html',text=processed_text,caname=caname,filedesc='Signing policy')
+	
 @app.route('/revokelist')
 def load_revoked():
 	confvals=readConf()
@@ -52,7 +69,7 @@ def load_revoked():
 			revocationreason[serial]=reason
 	except:
 		error_text='File revokelist.txt has entries with incorrect syntax.'
-		return render_template('cert-display.html',text=error_text,caname=caname)
+		return render_template('display-file.html',text=error_text,caname=caname)
 		
 	return render_template('revoked.html',revokeddict=revokeddict,revocationreason=revocationreason,caname=caname)
 
@@ -73,7 +90,7 @@ def load_cacert():
 	for line in lines:
 		processed_text+=line
 	processed_text=processed_text.replace('\n','<br>')
-	return render_template('ca-cert-display.html',text=processed_text,caname=caname)
+	return render_template('display-file.html',text=processed_text,caname=caname,filedesc='Root certificate')
 
 @app.route('/certlist', methods=['POST'])	
 def list_certs():
@@ -92,12 +109,12 @@ def list_certs():
 			certs[key]=val
 	except:
 		error_text='File certlist.txt has entries with incorrect syntax.'
-		return render_template('cert-display.html',text=error_text,caname=caname)
+		return render_template('display-file.html',text=error_text,caname=caname)
 
 	text = request.form['text']
 	if not certs.__contains__(text):
 		processed_text='Certificate with specified DN not found'
-		return render_template('cert-display.html',text=processed_text,caname=caname)
+		return render_template('display-file.html',text=processed_text,caname=caname)
 	else:
 		cert=certs[text]
 	toopen=confvals['CERTDIR']
@@ -111,13 +128,13 @@ def list_certs():
 		fp.close()
 	except:
 		error_text='Could not find certificate file specified.'
-		return render_template('cert-display.html',text=error_text,caname=caname)
+		return render_template('display-file.html',text=error_text,caname=caname)
 		
 	processed_text=''
 	for line in lines:
 		processed_text+=line
 	processed_text=processed_text.replace('\n','<br>')
-	return render_template('cert-display.html',text=processed_text,caname=caname)
+	return render_template('display-file.html',text=processed_text,caname=caname)
 
 def readConf():
 	where=os.path.dirname(__file__)
