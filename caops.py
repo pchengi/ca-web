@@ -134,7 +134,7 @@ def list_certs():
 	for line in lines:
 		processed_text+=line
 	processed_text=processed_text.replace('\n','<br>')
-	return render_template('display-file.html',text=processed_text,caname=caname)
+	return render_template('display-file.html',text=processed_text,caname=text)
 
 def readConf():
 	where=os.path.dirname(__file__)
