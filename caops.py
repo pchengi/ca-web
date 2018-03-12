@@ -111,7 +111,7 @@ def list_certs():
 		error_text='File certlist.txt has entries with incorrect syntax.'
 		return render_template('display-file.html',text=error_text,caname=caname)
 
-	text = request.form['text']
+	text = request.form['text'].strip(' ')
 	if not certs.__contains__(text):
 		processed_text='Certificate with specified DN not found'
 		return render_template('display-file.html',text=processed_text,caname=caname)
